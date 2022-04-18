@@ -25,9 +25,11 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background)
                 {
-                    Column (modifier = Modifier.height(500.dp)
+                    Row (modifier = Modifier
+                        .height(500.dp)
+                        .width(500.dp)
                         .background(Color.LightGray),
-                        horizontalAlignment = Alignment.CenterHorizontally){
+                        horizontalArrangement = Arrangement.Start){
                         CustomItem(weight = 3f, color = MaterialTheme.colors.secondary)
                         CustomItem(weight = 1f)
                     }
@@ -38,9 +40,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun ColumnScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.primary) {
+fun RowScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.primary) {
     Surface(modifier = Modifier
-        .width(200.dp)
+        .width(50.dp)
+        .height(50.dp)
         .weight(weight),
         color = color
     ) { }
@@ -50,8 +53,9 @@ fun ColumnScope.CustomItem(weight: Float, color: Color = MaterialTheme.colors.pr
 @Composable
 fun DefaultPreview() {
     SampleComposeAppTheme {
-        Column (modifier = Modifier.height(500.dp),
-        horizontalAlignment = Alignment.CenterHorizontally){
+        Row (modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.Start,
+        verticalAlignment = Alignment.CenterVertically ){
             CustomItem(weight = 3f, color = MaterialTheme.colors.secondary)
             CustomItem(weight = 1f)
         }
