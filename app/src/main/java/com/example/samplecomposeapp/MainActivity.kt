@@ -20,10 +20,12 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.BaselineShift
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.samplecomposeapp.ui.theme.SampleComposeAppTheme
@@ -85,49 +87,78 @@ class MainActivity : ComponentActivity() {
 //}
 
 
-@Composable
-fun CustomText() {
-    Text(
-        text = stringResource(id = R.string.app_name),
-        modifier = Modifier
-            .background(MaterialTheme.colors.primary)
-            .padding(16.dp)
-            .width(200.dp),
-        color = Color.White,
-        fontSize = MaterialTheme.typography.h6.fontSize,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold,
-        textAlign = TextAlign.Center
-    )
-}
+//@Composable
+//fun CustomText() {
+//    Text(
+//        text = stringResource(id = R.string.app_name),
+//        modifier = Modifier
+//            .background(MaterialTheme.colors.primary)
+//            .padding(16.dp)
+//            .width(200.dp),
+//        color = Color.White,
+//        fontSize = MaterialTheme.typography.h6.fontSize,
+//        fontStyle = FontStyle.Italic,
+//        fontWeight = FontWeight.Bold,
+//        textAlign = TextAlign.Center
+//    )
+//}
+
+
+//@Composable
+//fun CustomText2() {
+//    Text(
+//        buildAnnotatedString {
+//            withStyle(
+//                style = ParagraphStyle(textAlign = TextAlign.Center)) {
+//                withStyle(
+//                    style = SpanStyle(
+//                        color = MaterialTheme.colors.primary,
+//                        fontSize = 30.sp,
+//                        fontWeight = FontWeight.Bold
+//                    )) {
+//                    append("A")
+//                }
+//                append("B")
+//                append("C")
+//                append("D")
+//            }
+//        }, modifier = Modifier.width(200.dp)
+//    )
+//}
+
+
+//@Composable
+//fun CustomText3() {
+//    Text(text = "Hello World!".repeat(20), maxLines = 2, overflow = TextOverflow.Ellipsis)
+//}
 
 
 @Composable
-fun CustomText2() {
-    Text(
-        buildAnnotatedString {
-            withStyle(
-                style = ParagraphStyle(textAlign = TextAlign.Center)) {
-                withStyle(
-                    style = SpanStyle(
-                        color = MaterialTheme.colors.primary,
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight.Bold
-                    )) {
-                    append("A")
-                }
-                append("B")
-                append("C")
-                append("D")
-            }
-        }, modifier = Modifier.width(200.dp)
-    )
-}
-
-
-@Composable
-fun CustomText3() {
-    Text(text = "Hello World!".repeat(20), maxLines = 2, overflow = TextOverflow.Ellipsis)
+fun SuperScriptText (
+    normalText: String,
+    normalFontSize: TextUnit = MaterialTheme.typography.subtitle1.fontSize,
+    superTextFontSize: TextUnit = MaterialTheme.typography.overline.fontSize,
+    superTextFontWeight: FontWeight = FontWeight.Normal,
+    superText: String
+) {
+    Text(buildAnnotatedString {
+        withStyle(
+            style = SpanStyle(
+                fontSize = normalFontSize
+            )
+        ) {
+            append(normalText)
+        }
+        withStyle(
+            style = SpanStyle(
+                fontSize = superTextFontSize,
+                fontWeight = superTextFontWeight,
+                baselineShift = BaselineShift.Superscript
+            )
+        ) {
+            append(superText)
+        }
+    })
 }
 
 
@@ -145,9 +176,15 @@ fun DefaultPreview() {
 //        Greeting()
 
         
+//        Column(modifier = Modifier.fillMaxSize()) {
+//            CustomText3()
+//        }
+
         Column(modifier = Modifier.fillMaxSize()) {
-            CustomText3()
+            SuperScriptText(normalText = "Hello",
+                superText = "Android!",
+            superTextFontWeight = FontWeight.Light)
         }
-        
+
     }
 }
